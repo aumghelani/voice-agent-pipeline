@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.Python
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Package managers
+uv.lock.bak
+
+# Models / large downloaded assets
+models/
+*.gguf
+*.onnx
+*.bin
+
+# Audio artifacts
+*.wav
+*.mp3
+recordings/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Env files
+.env
+.env.local
