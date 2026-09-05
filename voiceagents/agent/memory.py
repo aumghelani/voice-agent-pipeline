@@ -43,3 +43,9 @@ class ConversationMemory:
 
     def __len__(self) -> int:
         return len(self._turns)
+
+    def __bool__(self) -> bool:
+        # Without this, `bool(memory)` falls back to __len__() == 0, so an
+        # empty-but-valid ConversationMemory() reads as falsy and can be
+        # mistaken for "not provided" by `memory or default()` call sites.
+        return True
