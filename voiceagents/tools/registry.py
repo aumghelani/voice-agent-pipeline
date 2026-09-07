@@ -70,4 +70,7 @@ class ToolRegistry:
             args = spec.args_model.model_validate(raw_arguments)
         except ValidationError as exc:
             raise ToolError(f"Invalid arguments for tool {name!r}: {exc}") from exc
-        return spec.fn(args)
+        try:
+            return spec.fn(args)
+        except Exception as exc:
+            raise ToolError(f"Tool {name!r} raised an error: {exc}") from exc
