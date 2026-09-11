@@ -32,7 +32,10 @@ class InvalidTransition(Exception):
 # Only these transitions are legal; anything else is a bug in the caller.
 _ALLOWED_TRANSITIONS: dict[TurnState, set[TurnState]] = {
     TurnState.IDLE: {TurnState.LISTENING},
-    TurnState.LISTENING: {TurnState.THINKING, TurnState.IDLE},
+    # LISTENING -> LISTENING is legal: after a barge-in returns to
+    # LISTENING, the next turn starts by re-arming the mic, i.e. entering
+    # LISTENING again rather than resuming a stale in-progress one.
+    TurnState.LISTENING: {TurnState.LISTENING, TurnState.THINKING, TurnState.IDLE},
     TurnState.THINKING: {TurnState.SPEAKING, TurnState.LISTENING, TurnState.IDLE},
     TurnState.SPEAKING: {TurnState.LISTENING, TurnState.IDLE},
 }

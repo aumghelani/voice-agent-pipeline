@@ -41,6 +41,22 @@ def test_thinking_can_go_directly_back_to_listening_without_speaking():
     assert controller.state == TurnState.LISTENING
 
 
+def test_listening_can_restart_listening_after_a_barge_in():
+    # Regression: after barge_in() returns to LISTENING, the next turn
+    # re-arms the mic by calling start_listening() again while already
+    # LISTENING. This must be legal, not an InvalidTransition.
+    controller = TurnTakingController()
+    controller.start_listening()
+    controller.start_thinking()
+    controller.start_speaking()
+    controller.barge_in()
+    assert controller.state == TurnState.LISTENING
+
+    controller.start_listening()
+
+    assert controller.state == TurnState.LISTENING
+
+
 def test_invalid_transition_raises():
     controller = TurnTakingController()  # IDLE
 
