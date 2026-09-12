@@ -11,7 +11,8 @@ This is a personal learning project, structured as incremental commits, inspired
 
 ## Status
 
-Work in progress, built incrementally. See `docs/` for design notes and `tests/` for behavior specs.
+105 tests, ~89% statement coverage on `voiceagents/`. See [docs/architecture.md](docs/architecture.md)
+for design notes and `tests/` for behavior specs.
 
 ## Quick start
 
@@ -25,6 +26,29 @@ Run the mock end-to-end pipeline (no mic/speaker/models required):
 
 ```bash
 python -m voiceagents.cli demo
+```
+
+Run a text-only multi-turn chat REPL (uses a real Claude model if `ANTHROPIC_API_KEY`
+is set, otherwise falls back to a mock so it still runs):
+
+```bash
+python -m voiceagents.cli chat
+```
+
+Run the tool-calling example (router -> tool call -> summarizer, fully mocked):
+
+```bash
+python -m examples.assistant_with_tools
+```
+
+### Optional extras
+
+Real backends are opt-in via extras so the base install stays lightweight:
+
+```bash
+pip install -e ".[audio]"      # sounddevice/PortAudio for real mic+speaker
+pip install -e ".[whisper]"    # faster-whisper for real STT
+pip install -e ".[anthropic]"  # Anthropic client for a real LLM backend
 ```
 
 ## Layout
